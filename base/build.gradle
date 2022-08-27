@@ -14,6 +14,11 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -48,6 +53,14 @@ dependencies {
     }
 
     paging.each { key, value ->
+        api value
+    }
+
+    koin_di.each { key, value ->
+        api value
+    }
+
+    ui.each { key, value ->
         api value
     }
 

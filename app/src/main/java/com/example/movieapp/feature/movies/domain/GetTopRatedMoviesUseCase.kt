@@ -1,0 +1,13 @@
+package com.example.movieapp.feature.movies.domain
+
+import androidx.paging.Pager
+import com.example.base.data.BasePagingSource.Companion.getDefaultPagingConfig
+import com.example.data.repository.movies.MoviesPagingSource
+
+class GetTopRatedMoviesUseCase(
+    private val moviesPagingSource: MoviesPagingSource
+) {
+    operator fun invoke() = Pager(getDefaultPagingConfig()) {
+        moviesPagingSource
+    }.flow
+}

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Movie App</string>
+    <string name="no_data_please_try_again_later">No data, Please try again later</string>
+    <string name="error_occurred_please_try_again_later">Error occurred, Please try again later</string>
 </resources>
