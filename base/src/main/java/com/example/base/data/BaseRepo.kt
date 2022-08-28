@@ -30,7 +30,7 @@ open class BaseRepo(
     }
 
 
-    suspend fun <T> networkWithCacheFlow(
+    fun <T> networkWithCacheFlow(
         remoteCall: suspend () -> T,
         localCall: suspend () -> T?,
         cacheCall: suspend (T) -> Unit

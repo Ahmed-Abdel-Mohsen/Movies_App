@@ -1,4 +1,5 @@
 plugins {
+    id 'kotlin-kapt'
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
@@ -12,6 +13,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 
     buildTypes {
@@ -48,6 +54,14 @@ dependencies {
     }
 
     paging.each { key, value ->
+        api value
+    }
+
+    koin_di.each { key, value ->
+        api value
+    }
+
+    ui.each { key, value ->
         api value
     }
 

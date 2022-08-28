@@ -12,6 +12,16 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "TMBD_API_KEY", "\"${properties.getProperty("TMBD_API_KEY")}\""
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 
     buildTypes {
@@ -30,6 +40,8 @@ android {
 }
 
 dependencies {
+
+    api project(path: ':base')
 
     testing.each { key, value ->
         testImplementation value

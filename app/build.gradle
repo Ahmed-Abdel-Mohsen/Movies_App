@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -14,6 +17,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 
     buildTypes {
@@ -33,10 +41,6 @@ android {
 
 dependencies {
     implementation project(path: ':data')
-
-    ui.each { key, value ->
-        implementation value
-    }
 
     testing.each { key, value ->
         testImplementation value
