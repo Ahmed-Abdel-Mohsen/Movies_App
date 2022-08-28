@@ -69,11 +69,7 @@ class MoviesActivity : BaseActivity<ActivityMoviesBinding, AllMoviesState, Movie
     override fun getToolbarTitle(): Any? = null
 
     override fun onViewAttach() {
-        setUpViews()
         initRecyclerView()
-    }
-
-    private fun setUpViews() {
     }
 
     private fun initRecyclerView() {
@@ -110,7 +106,6 @@ class MoviesActivity : BaseActivity<ActivityMoviesBinding, AllMoviesState, Movie
         val intent = DetailsActivity.createIntent(this, movieUiModel)
 
         startActivity(intent)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
