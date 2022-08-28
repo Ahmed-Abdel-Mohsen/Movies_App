@@ -27,12 +27,18 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding, DetailsState, Detai
     override fun onViewAttach() {
         super.onViewAttach()
         readIntentExtras()
+        setUpViews()
     }
 
     private fun readIntentExtras() {
         viewModel.setArgsData(
             intent.getParcelableExtra(EXTRA_MOVIE)
         )
+    }
+
+    private fun setUpViews() {
+        //just to make the marquee effect works
+        binding.tvMovieTitleValue.isSelected = true
     }
 
     companion object {
