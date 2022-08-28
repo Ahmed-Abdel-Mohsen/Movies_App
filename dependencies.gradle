@@ -5,7 +5,7 @@ ext {
             appcompat           : "1.5.0",
             android_material    : "1.6.1",
             swipe_refresh_layout: "1.1.0",
-            glide               : "4.13.2",
+            picasso             : "2.8",
             androidx_lifecycle  : "2.4.1",
             retrofit            : "2.9.0",
             okhttp              : "4.9.1",
@@ -38,7 +38,7 @@ ext {
             android_appcompat   : "androidx.appcompat:appcompat:$versions.appcompat",
             android_material    : "com.google.android.material:material:$versions.android_material",
             swipe_refresh_layout: "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe_refresh_layout",
-            glide               : "com.github.bumptech.glide:glide:$versions.glide",
+            picasso             : "com.squareup.picasso:picasso:$versions.picasso",
     ]
 
     utils = [
