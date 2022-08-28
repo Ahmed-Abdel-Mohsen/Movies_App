@@ -19,11 +19,11 @@ class MoviesMapper {
         )
     }
 
-    fun buildPosterUrl(posterPath: String): String {
+    fun buildPosterUrl(posterPath: String?): String {
         return POSTER_BASE_URL + posterPath
     }
 
-    fun buildBackdropUrl(backdropPath: String): String {
+    fun buildBackdropUrl(backdropPath: String?): String {
         return BACKDROP_BASE_URL + backdropPath
     }
 
