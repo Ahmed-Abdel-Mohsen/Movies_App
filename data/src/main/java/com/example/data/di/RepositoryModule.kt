@@ -12,6 +12,7 @@ val repositoryModule = module {
     //Movies Repo
     factory<MoviesRemoteDataSource> { MoviesRemoteDataSourceRetrofitImpl(get()) }
     factory<MoviesRepo> { MoviesRepoImpl(get(), get()) }
-    factory { MoviesPagingSource(get()) }
+    factory { MostPopularMoviesPagingSource(get()) }
+    factory { TopRatedMoviesPagingSource(get()) }
 
 }

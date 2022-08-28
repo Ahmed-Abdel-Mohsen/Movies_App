@@ -1,11 +1,15 @@
 package com.example.movieapp
 
+import android.view.Menu
+import android.view.MenuItem
+import androidx.annotation.IdRes
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base.utils.makeGone
 import com.example.base.utils.makeVisible
 import com.example.base.utils.onStates
 import com.example.base.view.BaseActivity
+import com.example.base.view.LoaderStateAdapter
 import com.example.movieapp.databinding.ActivityMainBinding
 import com.example.movieapp.feature.movies.presentation.AllMoviesState
 import com.example.movieapp.feature.movies.presentation.AllMoviesViewModel
@@ -18,6 +22,8 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMoviesViewModel>() {
 
     private val moviesAdapter = MoviePagedListAdapter()
+
+    private val loadStateAdapter = LoaderStateAdapter { moviesAdapter.retry() }
 
     override fun getLayoutRes() = R.layout.activity_main
 
@@ -68,9 +74,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMovies
     private fun setUpViews() {
     }
 
-    fun initRecyclerView() {
+    private fun initRecyclerView() {
         binding.moviesRecyclerView.apply {
-            adapter = moviesAdapter
+            adapter = moviesAdapter.withLoadStateFooter(loadStateAdapter)
             layoutManager = GridLayoutManager(this@MainActivity, 2)
         }
 
@@ -98,5 +104,41 @@ class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMovies
             }
         )
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.settings_menu, menu)
+        setSelectedSortOption(viewModel.sortChoiceStateFlow.value, menu)
+        return true
+    }
+
+    private fun setSelectedSortOption(@IdRes id: Int, menu: Menu) {
+        when (id) {
+            R.id.menu_sort_by_most_popular -> {
+                menu.getItem(0).isChecked = true
+            }
+            R.id.menu_sort_by_top_rated -> {
+                menu.getItem(1).isChecked = true
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_sort_by_most_popular -> {
+                if (!item.isChecked) {
+                    item.isChecked = true
+                    viewModel.sortByMostPopular()
+                }
+            }
+            R.id.menu_sort_by_top_rated -> {
+                if (!item.isChecked) {
+                    item.isChecked = true
+                    viewModel.sortByTopRated()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,7 +1,6 @@
 package com.example.base.view
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -135,18 +134,6 @@ abstract class BaseActivity<DB : ViewDataBinding, STATE : UiState, VM : BaseView
 
             supportActionBar?.title = titleTxt
         }
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        if (id == android.R.id.home) {
-            onBackPressed()
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
 }
