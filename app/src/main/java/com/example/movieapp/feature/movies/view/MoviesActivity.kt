@@ -1,4 +1,4 @@
-package com.example.movieapp
+package com.example.movieapp.feature.movies.view
 
 import android.view.Menu
 import android.view.MenuItem
@@ -10,24 +10,26 @@ import com.example.base.utils.makeVisible
 import com.example.base.utils.onStates
 import com.example.base.view.BaseActivity
 import com.example.base.view.LoaderStateAdapter
-import com.example.movieapp.databinding.ActivityMainBinding
+import com.example.movieapp.R
+import com.example.movieapp.databinding.ActivityMoviesBinding
+import com.example.movieapp.feature.detailsMovie.view.DetailsActivity
 import com.example.movieapp.feature.movies.presentation.AllMoviesState
-import com.example.movieapp.feature.movies.presentation.AllMoviesViewModel
-import com.example.movieapp.feature.movies.view.MoviePagedListAdapter
+import com.example.movieapp.feature.movies.presentation.MovieUiModel
+import com.example.movieapp.feature.movies.presentation.MoviesViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMoviesViewModel>() {
+class MoviesActivity : BaseActivity<ActivityMoviesBinding, AllMoviesState, MoviesViewModel>() {
 
-    private val moviesAdapter = MoviePagedListAdapter()
+    private val moviesAdapter = MoviePagedListAdapter(::openDetailsActivity)
 
     private val loadStateAdapter = LoaderStateAdapter { moviesAdapter.retry() }
 
-    override fun getLayoutRes() = R.layout.activity_main
+    override fun getLayoutRes() = R.layout.activity_movies
 
-    override fun getVM(): AllMoviesViewModel = getViewModel()
+    override fun getVM(): MoviesViewModel = getViewModel()
 
     override fun renderState(uiState: AllMoviesState) {
         when (uiState) {
@@ -77,7 +79,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMovies
     private fun initRecyclerView() {
         binding.moviesRecyclerView.apply {
             adapter = moviesAdapter.withLoadStateFooter(loadStateAdapter)
-            layoutManager = GridLayoutManager(this@MainActivity, 2)
+            layoutManager = GridLayoutManager(this@MoviesActivity, 2)
         }
 
         lifecycleScope.launch {
@@ -90,11 +92,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMovies
         moviesAdapter.onStates(
             onInitialLoading = {
                 viewModel.onInitialPagingLoading()
-
             },
             onInitialEmpty = {
                 viewModel.onInitialPagingEmpty()
-
             },
             onInitialError = {
                 viewModel.onInitialPagingError(it)
@@ -103,6 +103,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, AllMoviesState, AllMovies
                 viewModel.onNewPageSuccess()
             }
         )
+
+    }
+
+    private fun openDetailsActivity(movieUiModel: MovieUiModel) {
+        val intent = DetailsActivity.createIntent(this, movieUiModel)
+
+        startActivity(intent)
 
     }
 

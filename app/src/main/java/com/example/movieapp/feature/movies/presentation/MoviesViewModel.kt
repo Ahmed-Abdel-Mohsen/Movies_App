@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 
-class AllMoviesViewModel(
+class MoviesViewModel(
     val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
-    private val mapper: AllMoviesMapper
+    private val mapper: MoviesMapper
 ) : BaseViewModel<AllMoviesState>(AllMoviesState.Loading) {
 
     val sortChoiceStateFlow = MutableStateFlow(R.id.menu_sort_by_most_popular)

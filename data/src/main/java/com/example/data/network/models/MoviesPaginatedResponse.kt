@@ -9,6 +9,10 @@ data class MoviesPaginatedResponse(
 
 data class MovieDto(
     val adult: Boolean,
+    @SerializedName("backdrop_path")
+    val backdropPath: String,
+    @SerializedName("original_language")
+    val originalLanguage: String,
     val id: Int,
     @SerializedName("original_title")
     val originalTitle: String,
