@@ -19,13 +19,13 @@ sealed class AllMoviesState : UiState {
 @Parcelize
 data class MovieUiModel(
     val id: String,
-    val title: String,
-    val voteAvg: String,
-    val posterUrl: String,
-    val backdropUrl: String,
-    val originalTitle: String,
-    val overview: String,
-    val releaseDate: String,
+    val title: String?,
+    val voteAvg: String?,
+    val posterUrl: String?,
+    val backdropUrl: String?,
+    val originalTitle: String?,
+    val overview: String?,
+    val releaseDate: String?,
 ) : BaseEntity, Parcelable {
     override fun entityId() = id
 }
