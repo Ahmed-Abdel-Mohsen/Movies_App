@@ -13,13 +13,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-
-        buildConfigField "String", "TMBD_API_KEY", "\"${properties.getProperty("TMBD_API_KEY")}\""
+        buildConfigField "String", "TMBD_API_KEY", "\"${System.getenv("TMBD_API_KEY") ?: 'default_api_key'}\""
     }
 
     buildFeatures {
+        buildConfig true
         dataBinding true
         viewBinding true
     }
